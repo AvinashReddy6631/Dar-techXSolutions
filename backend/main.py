@@ -15,8 +15,8 @@ load_dotenv(dotenv_path=Path(__file__).resolve().parent.parent / ".env")
 app = FastAPI()
 app.add_middleware(SessionMiddleware, secret_key="your-secret-key")
 
-app.mount("/static", StaticFiles(directory="frontend/static"), name="static")
-templates = Jinja2Templates(directory="frontend/templates")
+app.mount("/static", StaticFiles(directory="frontEnd/static"), name="static")
+templates = Jinja2Templates(directory="frontEnd/templates")
 
 # In-memory "user db"
 users = {}

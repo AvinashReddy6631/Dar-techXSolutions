@@ -137,3 +137,13 @@ footer {
   display: block;
   animation: fadeIn 0.5s;
 }
+.success-banner {
+  background: #d1fae5;
+  color: #065f46;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: bold;
+  animation: fadeIn 0.5s ease-in-out;
+}

@@ -81,7 +81,9 @@ async def handle_contact(
     print("Email:", email)
     print("Message:", message)
     notify_admin(name, email, message)
-    return Response(status_code=204)
+    
+    return {"message": "success"}
+
 
 @app.get("/dashboard")
 def dashboard(request: Request):

@@ -1,0 +1,120 @@
+/* Base */
+body {
+  font-family: "Segoe UI", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f3f4f7;
+  color: #333;
+}
+
+/* Header */
+header {
+  background: linear-gradient(to right, #2c3e50, #3498db);
+  color: white;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+nav a {
+  color: white;
+  margin: 0 1rem;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+nav a:hover,
+nav a.active {
+  text-decoration: underline;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%);
+  padding: 4rem 2rem;
+  text-align: center;
+  color: #fff;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.btn {
+  padding: 0.7rem 1.5rem;
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #e74c3c;
+}
+
+/* Content Section */
+section.content {
+  padding: 3rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+/* Lists */
+ul {
+  padding-left: 1.5rem;
+}
+
+ul li {
+  margin-bottom: 0.8rem;
+}
+
+/* Form */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+input, textarea {
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+input:focus, textarea:focus {
+  border-color: #3498db;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.3);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: linear-gradient(to right, #2c3e50, #3498db);
+  color: white;
+  font-size: 0.9rem;
+}
+.logo img {
+  height: 40px;
+  vertical-align: middle;
+}

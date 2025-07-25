@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Dar-techXSolutions{% endblock %}</title>
+  <link rel="stylesheet" href="/static/styles/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        <a href="/">
+          <img src="/static/assets/Dar.png" alt="Dar-techXSolutions Logo" height="40">
+        </a>
+      </div>
+     {# <nav class="navbar">#}
+         <!-- TODO: Make this responsive with a burger menu for mobile -->
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/services">Services</a>
+        <a href="/contact">Contact</a>
+        {% if user %}
+          <a href="/dashboard">Dashboard</a>
+          <a href="/profile">Profile</a>
+          <a href="/settings">Settings</a>
+         <a href="/logout" class="btn-sm">Logout({{user.name}})</a>
+        {% else %}
+          <a href="/login">Login</a>
+          <a href="/signup">Signup</a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  <main class="fade-in">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Dar-techXSolutions. All rights reserved.</p>
+  </footer>
+</body>
+</html>

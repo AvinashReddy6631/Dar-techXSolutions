@@ -41,6 +41,7 @@ uvicorn backend.main:app --reload
 ```
 
 Visit: [http://localhost:8000](http://localhost:8000)
+Visit:[https://dar-techxsolutions01.onrender.com/]
 
 ## 🧪 Test Auth Flow
 

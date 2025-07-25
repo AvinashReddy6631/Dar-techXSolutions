@@ -1,9 +1,14 @@
-# backend/main.py (toast version, no thankyou.html)
+# backend/main.py (toast version, email .env safe loading)
 from fastapi import FastAPI, Request, Form, Depends, Response
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.middleware.sessions import SessionMiddleware
+import smtplib
+from email.message import EmailMessage
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 app = FastAPI()
 app.add_middleware(SessionMiddleware, secret_key="your-secret-key")
@@ -16,6 +21,36 @@ users = {}
 
 def get_current_user(request: Request):
     return request.session.get("user")
+
+# Send contact notification email (to yourself)
+def notify_admin(name: str, email: str, message: str):
+    msg = EmailMessage()
+    msg["Subject"] = "📨 New Contact Form Submission"
+
+    from_email = os.getenv("EMAIL_FROM")
+    to_email = os.getenv("EMAIL_TO")
+    from_pass = os.getenv("EMAIL_PASS")
+
+    if not from_email or not from_pass or not to_email:
+        print("❌ Missing EMAIL_FROM, EMAIL_PASS, or EMAIL_TO in .env")
+        return
+
+    msg["From"] = from_email
+    msg["To"] = to_email
+    msg.set_content(f"""
+    Name: {name}
+    Email: {email}
+    Message:
+    {message}
+    """)
+
+    try:
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
+            smtp.login(from_email, from_pass)
+            smtp.send_message(msg)
+            print("✅ Notification email sent successfully")
+    except Exception as e:
+        print("⚠️ Email notification failed:", e)
 
 # Routes
 @app.get("/")
@@ -45,6 +80,7 @@ async def handle_contact(
     print("Name:", name)
     print("Email:", email)
     print("Message:", message)
+    notify_admin(name, email, message)
     return Response(status_code=204)
 
 @app.get("/dashboard")

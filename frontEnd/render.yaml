@@ -6,5 +6,11 @@ services:
     buildCommand: ""
     startCommand: uvicorn backend.main:app --host 0.0.0.0 --port 10000
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.11
+      -envVars:
+  - key: EMAIL_FROM
+    value: dareddy2005@gmail.com        # ✅ your real Gmail
+  - key: EMAIL_PASS
+    value: your-16-digit-app-password   # ✅ NOT your login password
+  - key: EMAIL_TO
+    value: dareddy2005@gmail.com        # ✅ recipient (can be same)
+

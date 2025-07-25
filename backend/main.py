@@ -8,7 +8,9 @@ import smtplib
 from email.message import EmailMessage
 import os
 from dotenv import load_dotenv
-load_dotenv()
+from pathlib import Path
+load_dotenv(dotenv_path=Path(__file__).resolve().parent.parent / ".env")
+
 
 app = FastAPI()
 app.add_middleware(SessionMiddleware, secret_key="your-secret-key")
@@ -82,7 +84,13 @@ async def handle_contact(
     print("Message:", message)
     notify_admin(name, email, message)
     
-    return {"message": "success"}
+    
+    return templates.TemplateResponse("contact.html", {
+    "request": request,
+    "user": get_current_user(request),
+    "success": True
+})
+
 
 
 @app.get("/dashboard")

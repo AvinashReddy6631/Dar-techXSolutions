@@ -4,8 +4,70 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Dar-techXSolutions{% endblock %}</title>
-  <link rel="stylesheet" href="/static/styles/style.css">
+ <link rel="stylesheet" href="/static/styles/style.css?v=1">
+
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+    .navbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .dropdown {
+      position: relative;
+    }
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      background-color: white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      border-radius: 6px;
+      min-width: 150px;
+      z-index: 10;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    .dropdown:hover .dropdown-menu {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .dropdown-menu a {
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+    .dropdown-menu a:hover {
+      background: #f0f0f0;
+    }
+    .mobile-nav {
+      max-height: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: max-height 0.4s ease-in-out;
+    }
+    .mobile-nav.show {
+      max-height: 500px;
+    }
+    @media (max-width: 768px) {
+      .navbar a, .dropdown { display: none; }
+      .mobile-menu-btn { display: block; }
+    }
+  </style>
 </head>
 <body>
   <header class="header">
@@ -15,8 +77,28 @@
           <img src="/static/assets/Dar.png" alt="Dar-techXSolutions Logo" height="40">
         </a>
       </div>
-     {# <nav class="navbar">#}
-         <!-- TODO: Make this responsive with a burger menu for mobile -->
+      <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+      <nav class="navbar">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/services">Services</a>
+        <a href="/contact">Contact</a>
+        {% if user %}
+          <div class="dropdown">
+            <a href="#">Account ▾</a>
+            <div class="dropdown-menu">
+              <a href="/dashboard"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+              <a href="/profile"><i data-lucide="user"></i> Profile</a>
+              <a href="/settings"><i data-lucide="settings"></i> Settings</a>
+              <a href="/logout"><i data-lucide="log-out"></i> Logout ({{ user.name }})</a>
+            </div>
+          </div>
+        {% else %}
+          <a href="/login">Login</a>
+          <a href="/signup">Signup</a>
+        {% endif %}
+      </nav>
+      <nav id="mobile-nav" class="mobile-nav">
         <a href="/">Home</a>
         <a href="/about">About</a>
         <a href="/services">Services</a>
@@ -25,7 +107,7 @@
           <a href="/dashboard">Dashboard</a>
           <a href="/profile">Profile</a>
           <a href="/settings">Settings</a>
-         <a href="/logout" class="btn-sm">Logout({{user.name}})</a>
+          <a href="/logout">Logout ({{ user.name }})</a>
         {% else %}
           <a href="/login">Login</a>
           <a href="/signup">Signup</a>
@@ -41,5 +123,17 @@
   <footer>
     <p>&copy; 2025 Dar-techXSolutions. All rights reserved.</p>
   </footer>
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById("mobile-nav");
+      nav.classList.toggle("show");
+    }
+    document.querySelectorAll("#mobile-nav a").forEach(link => {
+      link.addEventListener("click", () => {
+        document.getElementById("mobile-nav").classList.remove("show");
+      });
+    });
+    lucide.createIcons();
+  </script>
 </body>
 </html>
